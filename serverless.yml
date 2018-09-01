@@ -24,11 +24,18 @@ custom:
       - aws-sdk
 
 functions:
-  hello:
-    handler: src/routes/handler.default
+  createUser:
+    handler: src/routes/createUser.default
     events:
       - http:
-          path: handler
+          path: createUser
+          method: post
+          cors: true
+  info:
+    handler: src/routes/info.default
+    events:
+      - http:
+          path: info
           method: get
           cors: true
 
