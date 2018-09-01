@@ -3,7 +3,7 @@ import cors from '../../util/cors';
 import ok from '../../util/ok';
 import badRequest from '../../util/badRequest';
 import { userUpdate } from '../../util/userUpdate';
-import { path, map, prop, defaultTo } from 'ramda';
+import { path, prop } from 'ramda';
 import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../../constants';
 
 const uuidv1 = require('uuid/v1')
