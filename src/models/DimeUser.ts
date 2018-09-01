@@ -14,8 +14,8 @@ const DimeUser = defineModel('dime-user', {
         favoriteCharities: Joi.array().items(Joi.object()),
         transactions: Joi.array().items(Joi.object()),
         plaidAccessToken: Joi.string(),
+        plaidAccountId: Joi.string(),
         stripeBankToken: Joi.string(),
-        stripeAccountId: Joi.string()
     }
 });
 

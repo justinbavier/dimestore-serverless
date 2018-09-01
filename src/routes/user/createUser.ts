@@ -9,7 +9,9 @@ export default cors((event, _context, callback) => {
 
     const user = {
         id: body.cognitoId,
-        email: body.email
+        email: body.email,
+        progress: 0,
+        totalDonated: 0
     };
 
     return DimeUser.create(user)

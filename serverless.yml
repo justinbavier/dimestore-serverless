@@ -10,6 +10,11 @@ provider:
   environment:
     DYNAMO_ACCESS_KEY: ${env:DIME_AWS_ACCESS_KEY}
     DYNAMO_SECRET_ACCESS_KEY: ${env:DIME_AWS_SECRET_KEY}
+    PLAID_CLIENT_ID: ${env:DIME_PLAID_CLIENT_ID}
+    PLAID_SECRET: ${env:DIME_PLAID_SECRET}
+    PLAID_PUBLIC_KEY: ${env:DIME_PLAID_PUBLIC_KEY}
+    # Enable this on deploy when we are ready to do live transactions
+    # STRIPE_SECRET: ${env:DIME_STRIPE_SECRET}
   iamRoleStatements:
     - Effect: Allow
       Action: dynamodb:*
