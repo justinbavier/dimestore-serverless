@@ -17,7 +17,11 @@
     "moment": "^2.22.2",
     "uuid": "^3.3.2",
     "ramda": "^0.25.0",
-    "vogels-promisified": "^2.2.4"
+    "joi": "^13.6.0",
+    "vogels": "^2.2.0",
+    "vogels-promisified": "^2.2.4",
+    "plaid": "^2.3.0",
+    "stripe": "^5.9.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.7",
