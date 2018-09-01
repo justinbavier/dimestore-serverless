@@ -24,18 +24,53 @@ custom:
 
 functions:
   createUser:
-    handler: src/routes/createUser.default
+    handler: src/routes/user/createUser.default
     events:
       - http:
           path: user/create
           method: post
           cors: true
   updateUser:
-    handler: src/routes/updateUser.default
+    handler: src/routes/user/updateUser.default
     events:
       - http:
           path: user/{id}/update
           method: post
+          cors: true
+  uploadPhoto:
+    handler: src/routes/user/uploadPhoto.default
+    events:
+      - http:
+          path: user/{id}/uploadPhoto
+          method: post
+          cors: true
+  createCharity:
+    handler: src/routes/charity/createCharity.default
+    events:
+      - http:
+          path: charity/create
+          method: post
+          cors: true
+  updateCharity:
+    handler: src/routes/charity/updateCharity.default
+    events:
+      - http:
+          path: charity/{id}/update
+          method: post
+          cors: true
+  getCharityById:
+    handler: src/routes/charity/getCharityById.default
+    events:
+      - http:
+          path: charity/{id}
+          method: get
+          cors: true
+  getCharitiesByCity:
+    handler: src/routes/charity/getCharitiesByCity.default
+    events:
+      - http:
+          path: charities/{city}
+          method: get
           cors: true
   info:
     handler: src/routes/info.default

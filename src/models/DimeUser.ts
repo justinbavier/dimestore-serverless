@@ -7,6 +7,7 @@ const DimeUser = defineModel('dime-user', {
     schema: {
         id: Joi.string().required(),
         email: Joi.string().required(),
+        profilePicture: Joi.string(),
         progress: Joi.number(),
         totalDonated: Joi.number(),
         queuedCharities: Joi.array().items(Joi.object()),
