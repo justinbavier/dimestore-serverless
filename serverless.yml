@@ -2,7 +2,6 @@ service: dimestore
 plugins:
   - serverless-offline
   - serverless-webpack
-  - serverless-domain-manager
 
 provider:
   name: aws
@@ -28,7 +27,14 @@ functions:
     handler: src/routes/createUser.default
     events:
       - http:
-          path: createUser
+          path: user/create
+          method: post
+          cors: true
+  updateUser:
+    handler: src/routes/updateUser.default
+    events:
+      - http:
+          path: user/{id}/update
           method: post
           cors: true
   info:

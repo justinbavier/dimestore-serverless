@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "./node_modules/.bin/serverless offline start --port 3003",
     "start": "npm run server",
-    "deploy": "./node_modules/.bin/serverless deploy"
+    "deploy": "SLS_DEBUG=* sls deploy"
   },
   "keywords": [],
   "author": "",
