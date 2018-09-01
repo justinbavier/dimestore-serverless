@@ -1,13 +1,84 @@
 service: dimestore
+plugins:
+  - serverless-offline
+  - serverless-webpack
+  - serverless-domain-manager
+
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs8.10
+  region: us-east-1
+  environment:
+    DYNAMO_ACCESS_KEY: ${env:DIME_AWS_ACCESS_KEY}
+    DYNAMO_SECRET_ACCESS_KEY: ${env:DIME_AWS_SECRET_KEY}
+  iamRoleStatements:
+    - Effect: Allow
+      Action: dynamodb:*
+      Resource: arn:aws:dynamodb:us-east-1:*:*
   stage: prod
+
+custom:
+  webpack:
+  includeModules:
+    forceExclude:
+      - aws-sdk
+
 functions:
   hello:
-    handler: handler.hello
+    handler: src/routes/handler.default
     events:
       - http:
-          path: hello
+          path: handler
           method: get
           cors: true
+
+resources:
+  Resources:
+    DimeStoreUsersTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: 'dime-users'
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+    DimeStoreCharitiesTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: 'dime-charities'
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+    DimeStoreDonationsTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: 'dime-donations'
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES

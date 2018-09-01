@@ -1,0 +1,42 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./embed",
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": false,
+        "alwaysStrict": true,
+        "experimentalDecorators": false,
+        "forceConsistentCasingInFileNames": true,
+        "inlineSourceMap": true,
+        "jsx": "react",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noEmitOnError": false,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "preserveConstEnums": false,
+        "pretty": true,
+        "outDir": "./lib",
+        "rootDir": "./src",
+        "lib": [
+            "es6"
+        ],
+        "sourceRoot": ".",
+        "strictNullChecks": true,
+        "suppressExcessPropertyErrors": false,
+        "target": "es6",
+        "skipLibCheck": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./typings"
+        ]
+    },
+    "include": [
+        "./src/**/*",
+        "./node_modules/ramda/*"
+    ]
+}

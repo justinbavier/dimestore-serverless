@@ -1,8 +1,11 @@
-# package directories
-node_modules
 jspm_packages
-
-# Serverless directories
+node_modules
+lib
 .serverless
+.webpack
+coverage
+.idea
+npm-debug.log
+package-lock.json
 
 creds.txt

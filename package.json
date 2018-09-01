@@ -1,15 +1,36 @@
 {
   "name": "dimestore-serverless",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Serverless API for the Dime Store",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "./node_modules/.bin/serverless offline start --port 3003",
+    "start": "npm run server",
+    "deploy": "./node_modules/.bin/serverless deploy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "uuid": "^3.3.2"
+    "aws-sdk": "^2.141.0",
+    "moment": "^2.22.2",
+    "uuid": "^3.3.2",
+    "ramda": "^0.25.0",
+    "vogels-promisified": "^2.2.4"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.7",
+    "@types/jest": "^23.1.4",
+    "@types/node": "^10.0.4",
+    "@types/ramda": "^0.25.34",
+    "serverless-offline": "^3.25.10",
+    "serverless-webpack": "^5.1.5",
+    "serverless-domain-manager": "^2.6.0",
+    "ts-jest": "^22.4.2",
+    "ts-loader": "^4.4.1",
+    "typescript": "^2.6.1",
+    "webpack": "^4.10.2",
+    "webpack-node-externals": "^1.7.2"
   }
 }
