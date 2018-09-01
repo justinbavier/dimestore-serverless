@@ -69,7 +69,7 @@ functions:
     handler: src/routes/charity/getCharitiesByCity.default
     events:
       - http:
-          path: charities/{city}
+          path: charities/city/{city}
           method: get
           cors: true
   info:
