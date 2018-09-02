@@ -35,11 +35,25 @@ functions:
           path: user/create
           method: post
           cors: true
+  getUser:
+    handler: src/routes/user/getUserById.default
+    events:
+      - http:
+          path: user/{id}
+          method: get
+          cors: true
   updateUser:
     handler: src/routes/user/updateUser.default
     events:
       - http:
           path: user/{id}/update
+          method: post
+          cors: true
+  plaidWebhook:
+    handler: src/routes/user/plaidWebhook.default
+    events:
+      - http:
+          path: user/plaid/webhook
           method: post
           cors: true
   uploadPhoto:

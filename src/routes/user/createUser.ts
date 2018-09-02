@@ -11,7 +11,10 @@ export default cors((event, _context, callback) => {
         id: body.cognitoId,
         email: body.email,
         progress: 0,
-        totalDonated: 0
+        totalDonated: 0,
+        donationThreshold: 1000,
+        queuedCharities: [],
+        favoriteCharities: [],
     };
 
     return DimeUser.create(user)
