@@ -11,7 +11,7 @@ const client = new plaid.Client(
     PLAID_CLIENT_ID,
     PLAID_SECRET,
     PLAID_PUBLIC_KEY,
-    'sandbox'
+    plaid.environments.sandbox
 );
 
 const createDonation = options => DimeDonation.create(options);
@@ -30,6 +30,7 @@ export default (charityId, userId, userPlaidAccessToken, userPlaidAccountId, use
                     id: uuidv1(),
                     donorId: userId,
                     charityId,
+                    amount: userThreshold,
                     charityName: prop('name', charity)
                 }))
                 .then(donation => ({ donation: path(['attrs'], donation) }))

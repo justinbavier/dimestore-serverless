@@ -14,7 +14,7 @@ const client = new plaid.Client(
     PLAID_CLIENT_ID,
     PLAID_SECRET,
     PLAID_PUBLIC_KEY,
-    'sandbox'
+    plaid.environments.sandbox
 );
 
 export default cors((event, _context, callback) => {
@@ -27,14 +27,14 @@ export default cors((event, _context, callback) => {
         .then(user => client.getTransactions(
             prop('plaidAccessToken', user),
             moment().subtract(1, 'days').format('YYYY-MM-DD'),
-            moment().format('YYYY_MM_DD'),
+            moment().format('YYYY-MM-DD'),
             {
                 count: prop('new_transactions', body),
                 offset: 0
             })
             .then(res => map(transformTransaction, defaultTo([], prop('transactions', res))))
             .then(transactions => {
-                const updatedDonationProgress = reduce(add, prop('progress', user), transactions);
+                const updatedDonationProgress = reduce(add, prop('progress', user), map(t => prop('roundUp', t), transactions));
                 const queuedCharities = prop('queuedCharities', user);
                 if (updatedDonationProgress >= prop('donationThreshold', user) && queuedCharities.length) {
                     return makeDonationOnThreshold(
@@ -47,18 +47,24 @@ export default cors((event, _context, callback) => {
                             id: prop('id', user),
                             progress: updatedDonationProgress - prop('donationThreshold', user),
                             queuedCharities: queuedCharities.slice(1),
-                            transactions,
+                            transactions: prop('transactions', user) ? [...transactions, ...prop('transactions', user)] : transactions,
                             totalDonated: prop('totalDonated', user) + prop('donationThreshold', user),
                         })
                             .then(() => callback(null, ok({ success: true })))
                     )
+                } else if (queuedCharities && queuedCharities.length) {
+                    return userUpdate({
+                        id: prop('id', user),
+                        transactions: prop('transactions', user) ? [...transactions, ...prop('transactions', user)] : transactions,
+                        progress: updatedDonationProgress
+                    })
+                    .then(() => callback(null, ok({ success: true })))
                 } else {
                     return userUpdate({
                         id: prop('id', user),
-                        transactions,
-                        progress: prop('progress', user) +  updatedDonationProgress
+                        transactions: prop('transactions', user) ? [...transactions, ...prop('transactions', user)] : transactions
                     })
-                        .then(() => callback(null, ok({ success: true })))
+                    .then(() => callback(null, ok({ success: true })))
                 }
             })
         )
@@ -70,7 +76,8 @@ const transformTransaction = t => ({
     transactionId: prop('transaction_id', t),
     name: prop('name', t),
     amount: prop('amount', t),
-    roundUp: (Math.ceil(prop('amount', t)) - prop('amount', t)).toFixed(2),
+    // MAKE THIS BETTER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    roundUp: Number(Number(Math.ceil(prop('amount', t)) - prop('amount', t)).toFixed(2)) * 100,
     date: prop('date', t)
 });
 

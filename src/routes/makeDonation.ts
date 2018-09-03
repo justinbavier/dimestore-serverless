@@ -15,7 +15,7 @@ const client = new plaid.Client(
     PLAID_CLIENT_ID,
     PLAID_SECRET,
     PLAID_PUBLIC_KEY,
-    'sandbox'
+    plaid.environments.sandbox
 );
 
 const createDonation = options => DimeDonation.create(options);

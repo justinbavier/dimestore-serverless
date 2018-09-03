@@ -8,18 +8,20 @@ import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../constants';
 const plaid = require('plaid');
 
 // Make this actual URL!!!!!!!!!!!!
-const PLAID_WEBHOOK = '';
+const PLAID_WEBHOOK = 'https://qqyf69u891.execute-api.us-east-1.amazonaws.com/prod/user/plaid/webhook';
 
 const client = new plaid.Client(
     PLAID_CLIENT_ID,
     PLAID_SECRET,
     PLAID_PUBLIC_KEY,
-    'sandbox'
+    plaid.environments.sandbox
 );
 
 export default cors((event, _context, callback) => {
     const { id } = event.pathParameters;
     const body = JSON.parse(event.body);
+
+    console.log(id, 'iD!!!!!!!!!');
 
     if (!id) {
         return callback(null, badRequest(400, { message: `Bad Request -> Missing User ID!` }))
@@ -33,7 +35,7 @@ export default cors((event, _context, callback) => {
         return callback(null, badRequest(400, { message: `Bad Request -> Missing Bank Account ID!` }))
     };
 
-    return client.exchangePublicToken(prop('public_token', body))
+    return client.exchangePublicToken(prop('publicToken', body))
         .then(token => client.updateItemWebhook(prop('access_token', token), PLAID_WEBHOOK)
                 .then(() => 
                     userUpdate({

@@ -21,11 +21,12 @@ provider:
       Resource: arn:aws:dynamodb:us-east-1:*:*
   stage: prod
 
-# custom:
-#   webpack:
-#   includeModules:
-#     forceExclude:
-#       - aws-sdk
+custom:
+  webpackIncludeModules: true
+  webpack:
+  includeModules:
+    forceExclude:
+      - aws-sdk
 
 functions:
   createUser:
@@ -49,6 +50,13 @@ functions:
           path: user/{id}/update
           method: post
           cors: true
+  plaidStoreAccessToken:
+    handler: src/routes/plaidGetAccessToken.default
+    events:
+      - http:
+          path: user/{id}/storeAccessToken
+          method: post
+          cors: true
   plaidWebhook:
     handler: src/routes/plaidWebhook.default
     events:
@@ -69,6 +77,13 @@ functions:
       - http:
           path: charity/create
           method: post
+          cors: true
+  getAllCharities:
+    handler: src/routes/getAllCharities.default
+    events:
+      - http:
+          path: charities/all
+          method: get
           cors: true
   updateCharity:
     handler: src/routes/updateCharity.default
