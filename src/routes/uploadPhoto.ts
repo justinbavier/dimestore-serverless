@@ -1,9 +1,9 @@
-import cors from '../../util/cors';
-import ok from '../../util/ok';
-import badRequest from '../../util/badRequest';
+import cors from '../util/cors';
+import ok from '../util/ok';
+import badRequest from '../util/badRequest';
 import { path } from 'ramda';
-import { writeToS3 } from '../../util/s3upload';
-import { userUpdate } from '../../util/userUpdate';
+import { writeToS3 } from '../util/s3upload';
+import { userUpdate } from '../util/userUpdate';
 
 export default cors((event, _context, callback) => {
     const { id } = event.pathParameters;

@@ -1,7 +1,7 @@
-import { DimeCharityByCity } from '../../models';
-import cors from '../../util/cors';
-import ok from '../../util/ok';
-import badRequest from '../../util/badRequest';
+import { DimeCharityByCity } from '../models';
+import cors from '../util/cors';
+import ok from '../util/ok';
+import badRequest from '../util/badRequest';
 import { path, map, prop, defaultTo } from 'ramda';
 
 export default cors((event, _context, callback) => {

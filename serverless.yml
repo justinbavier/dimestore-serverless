@@ -21,71 +21,71 @@ provider:
       Resource: arn:aws:dynamodb:us-east-1:*:*
   stage: prod
 
-custom:
-  webpack:
-  includeModules:
-    forceExclude:
-      - aws-sdk
+# custom:
+#   webpack:
+#   includeModules:
+#     forceExclude:
+#       - aws-sdk
 
 functions:
   createUser:
-    handler: src/routes/user/createUser.default
+    handler: src/routes/createUser.default
     events:
       - http:
           path: user/create
           method: post
           cors: true
   getUser:
-    handler: src/routes/user/getUserById.default
+    handler: src/routes/getUserById.default
     events:
       - http:
           path: user/{id}
           method: get
           cors: true
   updateUser:
-    handler: src/routes/user/updateUser.default
+    handler: src/routes/updateUser.default
     events:
       - http:
           path: user/{id}/update
           method: post
           cors: true
   plaidWebhook:
-    handler: src/routes/user/plaidWebhook.default
+    handler: src/routes/plaidWebhook.default
     events:
       - http:
           path: user/plaid/webhook
           method: post
           cors: true
   uploadPhoto:
-    handler: src/routes/user/uploadPhoto.default
+    handler: src/routes/uploadPhoto.default
     events:
       - http:
           path: user/{id}/uploadPhoto
           method: post
           cors: true
   createCharity:
-    handler: src/routes/charity/createCharity.default
+    handler: src/routes/createCharity.default
     events:
       - http:
           path: charity/create
           method: post
           cors: true
   updateCharity:
-    handler: src/routes/charity/updateCharity.default
+    handler: src/routes/updateCharity.default
     events:
       - http:
           path: charity/{id}/update
           method: post
           cors: true
   getCharityById:
-    handler: src/routes/charity/getCharityById.default
+    handler: src/routes/getCharityById.default
     events:
       - http:
           path: charity/{id}
           method: get
           cors: true
   getCharitiesByCity:
-    handler: src/routes/charity/getCharitiesByCity.default
+    handler: src/routes/getCharitiesByCity.default
     events:
       - http:
           path: charities/city/{city}

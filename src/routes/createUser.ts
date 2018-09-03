@@ -1,7 +1,7 @@
-import { DimeUser } from '../../models';
-import cors from '../../util/cors';
-import ok from '../../util/ok';
-import badRequest from '../../util/badRequest';
+import { DimeUser } from '../models';
+import cors from '../util/cors';
+import ok from '../util/ok';
+import badRequest from '../util/badRequest';
 import { path } from 'ramda';
 
 export default cors((event, _context, callback) => {
@@ -24,4 +24,4 @@ export default cors((event, _context, callback) => {
         })))
     .catch(error => 
         callback(null, badRequest(400, { message: `Bad Request -> ${error}` })))
-})
+});

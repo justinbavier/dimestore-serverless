@@ -1,10 +1,10 @@
-import { DimeUser, DimeCharity, DimeDonation } from '../../models';
-import cors from '../../util/cors';
-import ok from '../../util/ok';
-import badRequest from '../../util/badRequest';
-import { userUpdate } from '../../util/userUpdate';
+import { DimeUser, DimeCharity, DimeDonation } from '../models';
+import cors from '../util/cors';
+import ok from '../util/ok';
+import badRequest from '../util/badRequest';
+import { userUpdate } from '../util/userUpdate';
 import { path, prop } from 'ramda';
-import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../../constants';
+import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../constants';
 
 const uuidv1 = require('uuid/v1')
 const plaid = require('plaid');

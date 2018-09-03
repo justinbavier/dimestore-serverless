@@ -1,5 +1,5 @@
-import { DimeCharity, DimeDonation } from '../../models';
-import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../../constants';
+import { DimeCharity, DimeDonation } from '../models';
+import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../constants';
 import { path, prop } from 'ramda';
 
 const uuidv1 = require('uuid/v1')

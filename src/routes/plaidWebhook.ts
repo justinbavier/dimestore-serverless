@@ -1,10 +1,10 @@
-import { DimeUserByItemId } from '../../models';
-import cors from '../../util/cors';
-import ok from '../../util/ok';
-import badRequest from '../../util/badRequest';
-import { userUpdate } from '../../util/userUpdate';
+import { DimeUserByItemId } from '../models';
+import cors from '../util/cors';
+import ok from '../util/ok';
+import badRequest from '../util/badRequest';
+import { userUpdate } from '../util/userUpdate';
 import { path, prop, map, defaultTo, add, reduce } from 'ramda';
-import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../../constants';
+import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../constants';
 import makeDonationOnThreshold from './makeDonationOnThreshold';
 
 const moment = require('moment');
