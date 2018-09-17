@@ -113,6 +113,13 @@ functions:
           path: info
           method: get
           cors: true
+  storeEmail:
+    handler: src/routes/storeEmail.default
+    events:
+      - http:
+          path: storeEmail
+          method: post
+          cors: true
 
 resources:
   Resources:
