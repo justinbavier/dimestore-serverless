@@ -7,8 +7,6 @@ import { path } from 'ramda';
 export default cors((event, _context, callback) => {
     const body = JSON.parse(event.body);
 
-    console.log(body.data);
-
     const email = {
         email: body.data.email,
         firstName: body.data.firstName,
