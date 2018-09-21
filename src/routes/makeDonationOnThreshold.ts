@@ -35,4 +35,3 @@ export default (charityId, userId, userPlaidAccessToken, userPlaidAccountId, use
                 }))
                 .then(donation => ({ donation: path(['attrs'], donation) }))
         )
-   
