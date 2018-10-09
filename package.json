@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "./node_modules/.bin/serverless offline start --port 3003",
-    "start": "AWS_PROFILE=dime npm run server",
-    "deploy": "SLS_DEBUG=* sls deploy"
+    "start": "AWS_ACCESS_KEY_ID=AKIAJIQRJHVAS7OCC3NQ AWS_SECRET_ACCESS_KEY=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 npm run server",
+    "deploy": "AWS_ACCESS_KEY_ID=AKIAJIQRJHVAS7OCC3NQ AWS_SECRET_ACCESS_KEY=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 SLS_DEBUG=* sls deploy"
   },
   "keywords": [],
   "author": "",
