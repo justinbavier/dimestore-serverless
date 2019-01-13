@@ -8,7 +8,13 @@ export default cors((event, _context, callback) => {
     const { id } = event.pathParameters;
 
     return DimeUser.get(id)
-        .then(user => path(['attrs'], user))
+        .then(user => {
+            if (!user) {
+                throw Error('User does not exist!')
+            } else {
+                return path(['attrs'], user)
+            }
+        })
         .then(user => callback(null, ok({ success: true, user })))
     .catch(error => callback(null, badRequest(404, { message: `Bad Request -> ${error}` })))
 });
