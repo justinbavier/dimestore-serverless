@@ -3,7 +3,7 @@ import cors from '../util/cors';
 import ok from '../util/ok';
 import badRequest from '../util/badRequest';
 import { userUpdate } from '../util/userUpdate';
-import { path, prop, map, defaultTo, add, reduce } from 'ramda';
+import { path, prop, map, defaultTo, add, reduce, filter, gt } from 'ramda';
 import { PLAID_CLIENT_ID, PLAID_SECRET, PLAID_PUBLIC_KEY } from '../constants';
 import makeDonationOnThreshold from './makeDonationOnThreshold';
 
@@ -32,7 +32,7 @@ export default cors((event, _context, callback) => {
                 count: prop('new_transactions', body),
                 offset: 0
             })
-            .then(res => map(transformTransaction, defaultTo([], prop('transactions', res))))
+            .then(res => filter(t => gt(prop('amount', t), 0), map(transformTransaction, defaultTo([], prop('transactions', res)))))
             .then(transactions => {
                 const updatedDonationProgress = reduce(add, prop('progress', user), map(t => prop('roundUp', t), transactions));
                 const queuedCharities = prop('queuedCharities', user);
@@ -50,7 +50,7 @@ export default cors((event, _context, callback) => {
                             transactions: prop('transactions', user) ? [...transactions, ...prop('transactions', user)] : transactions,
                             totalDonated: prop('totalDonated', user) + prop('donationThreshold', user),
                         })
-                            .then(() => callback(null, ok({ success: true })))
+                            .then(() => ok({ success: true }))
                     )
                 } else if (queuedCharities && queuedCharities.length) {
                     return userUpdate({
@@ -58,17 +58,17 @@ export default cors((event, _context, callback) => {
                         transactions: prop('transactions', user) ? [...transactions, ...prop('transactions', user)] : transactions,
                         progress: updatedDonationProgress
                     })
-                    .then(() => callback(null, ok({ success: true })))
+                    .then(() => ok({ success: true }))
                 } else {
                     return userUpdate({
                         id: prop('id', user),
                         transactions: prop('transactions', user) ? [...transactions, ...prop('transactions', user)] : transactions
                     })
-                    .then(() => callback(null, ok({ success: true })))
+                    .then(() => ok({ success: true }))
                 }
             })
         )
-    .catch(error => callback(null, badRequest({ message: `Bad Request -> ${error}` })))
+    .catch(error => badRequest({ message: `Bad Request -> ${error}` }))
 });
 
 const transformTransaction = t => ({
@@ -77,7 +77,7 @@ const transformTransaction = t => ({
     name: prop('name', t),
     amount: prop('amount', t),
     // MAKE THIS BETTER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    roundUp: Number(Number(Math.ceil(prop('amount', t)) - prop('amount', t)).toFixed(2)) * 100,
+    roundUp: Number(Number(Math.ceil(prop('amount', t)) - prop('amount', t)).toFixed(2)),
     date: prop('date', t)
 });
 

@@ -6,8 +6,7 @@ import { writeToS3 } from '../util/s3upload';
 import { userUpdate } from '../util/userUpdate';
 
 export default cors((event, _context, callback) => {
-    const { id } = event.pathParameters;
-    console.log(event);
+    const { id } = event.pathParameters;;
     const profilePicture = event.files.profilePicture
     return writeToS3({
         data_uri: profilePicture.data_uri,
@@ -15,6 +14,6 @@ export default cors((event, _context, callback) => {
         filetype: profilePicture.filetype
     })
         .then(uri => userUpdate({ id, profilePicture: uri })
-            .then(user => callback(null, ok({ success: true, user: path(['attrs'], user) }))))
-    .catch(error => callback(null, badRequest(400, { message: `Bad Request -> ${error}` })))
+            .then(user => ok({ success: true, user: path(['attrs'], user) })))
+    .catch(error => badRequest(400, { message: `Bad Request -> ${error}` }))
 })

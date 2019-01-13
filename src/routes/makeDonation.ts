@@ -55,11 +55,11 @@ export default cors((event, _context, callback) => {
                                     id: prop('userId', body), 
                                     totalDonated: prop('totalDonated', user) + prop('amount', body )
                                 })
-                                .then(user => callback(null, ok({
+                                .then(user => ok({
                                     success: true,
                                     user: path(['attrs'], user),
                                     donation: path(['attrs'], donation)
-                                }))))
+                                })))
             })
-    .catch(error => callback(null, badRequest({ message: `Bad Request -> ${error}` }))))
+    .catch(error => badRequest({ message: `Bad Request -> ${error}` })))
 })

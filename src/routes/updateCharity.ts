@@ -12,9 +12,9 @@ export default cors((event, _context, callback) => {
         id,
         ...body
     })
-    .then(charity => callback(null, ok({
+    .then(charity => ok({
         success: true,
         charity: path(['attrs'], charity)
-    })))
-    .catch(error => callback(null, badRequest(400, { message: `Bad Request -> ${error}` })))
+    }))
+    .catch(error => badRequest(400, { message: `Bad Request -> ${error}` }))
 });

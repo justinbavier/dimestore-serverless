@@ -11,6 +11,6 @@ export default cors((event, _context, callback) => {
         .usingIndex('city-index')
         .execAsync()
         .then(charities => map(prop('attrs'), defaultTo([], path(['Items'], charities))))
-        .then(charities => callback(null, ok({ success: true, charities })))
-    .catch(error => callback(null, badRequest({ message: `Bad Request -> ${error}` })))
+        .then(charities => ok({ success: true, charities }))
+    .catch(error => badRequest({ message: `Bad Request -> ${error}` }))
 });

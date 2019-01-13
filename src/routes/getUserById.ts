@@ -4,7 +4,7 @@ import ok from '../util/ok';
 import badRequest from '../util/badRequest';
 import { path } from 'ramda';
 
-export default cors((event, _context, callback) => {
+export default cors((event, _context, _callback) => {
     const { id } = event.pathParameters;
 
     return DimeUser.get(id)
@@ -15,6 +15,6 @@ export default cors((event, _context, callback) => {
                 return path(['attrs'], user)
             }
         })
-        .then(user => callback(null, ok({ success: true, user })))
-    .catch(error => callback(null, badRequest(404, { message: `Bad Request -> ${error}` })))
+        .then(user => ok({ success: true, user }))
+    .catch(error => badRequest(404, { message: `Bad Request -> ${error}` }))
 });

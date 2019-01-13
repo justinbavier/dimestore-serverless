@@ -20,10 +20,10 @@ export default cors((event, _context, callback) => {
     };
 
     return DimeUser.create(user)
-        .then(user => callback(null, ok({
+        .then(user => ok({
             success: true,
             user: path(['attrs'], user)
-        })))
+        }))
     .catch(error => 
-        callback(null, badRequest(400, { message: `Bad Request -> ${error}` })))
+        badRequest(400, { message: `Bad Request -> ${error}` }))
 });

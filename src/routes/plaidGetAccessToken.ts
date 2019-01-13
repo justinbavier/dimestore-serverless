@@ -21,8 +21,6 @@ export default cors((event, _context, callback) => {
     const { id } = event.pathParameters;
     const body = JSON.parse(event.body);
 
-    console.log(id, 'iD!!!!!!!!!');
-
     if (!id) {
         return callback(null, badRequest(400, { message: `Bad Request -> Missing User ID!` }))
     };
@@ -44,10 +42,10 @@ export default cors((event, _context, callback) => {
                         plaidAccessToken: prop('access_token', token),
                         plaidAccountId: prop('accountId', body)
                      }))
-                        .then(user => callback(null, ok({ 
+                        .then(user => ok({ 
                             success: true,
                             user: path(['attrs'], user)
-                        })))
+                        }))
         )
-        .catch(error => callback(null, badRequest({ message: `Bad Request -> ${error}` })))
+        .catch(error => badRequest({ message: `Bad Request -> ${error}` }))
 });
