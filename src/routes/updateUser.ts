@@ -12,9 +12,9 @@ export default cors((event, _context, callback) => {
         id,
         ...body
     })
-        .then(user => callback(null, ok({
+        .then(user => ok({
             success: true,
             user: path(['attrs'], user) //user.attrs
-        })))
-    .catch(error => callback(null, badRequest(400, { message: `Bad Request -> ${error}` })))
+        }))
+    .catch(error => badRequest(400, { message: `Bad Request -> ${error}` }))
 });

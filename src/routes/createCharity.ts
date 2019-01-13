@@ -6,13 +6,13 @@ import { path } from 'ramda';
 
 const uuidv1 = require('uuid/v1')
 
-export default cors((event, _context, callback) => {
+export default cors((event, _context, _callback) => {
     const body = JSON.parse(event.body);
 
     return DimeCharity.create({
         id: uuidv1(),
         ...body
     })
-        .then(charity => callback(null, ok({ success: true, charity: path(['attrs'], charity) })))
-    .catch(error => callback(null, badRequest({ message: `Bad Request -> ${error}` })))
+        .then(charity => ok({ success: true, charity: path(['attrs'], charity) }))
+    .catch(error => badRequest({ message: `Bad Request -> ${error}` }))
 });

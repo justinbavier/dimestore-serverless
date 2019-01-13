@@ -64,6 +64,13 @@ functions:
           path: user/plaid/webhook
           method: post
           cors: true
+  getPlaidTransactions:
+    handler: src/routes/plaidGetTransactions.default
+    events:
+      - http:
+          path: /user/{id}/transactions
+          method: get
+          cors: true
   uploadPhoto:
     handler: src/routes/uploadPhoto.default
     events:

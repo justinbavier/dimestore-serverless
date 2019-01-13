@@ -16,10 +16,10 @@ export default cors((event, _context, callback) => {
     };
 
     return DimeEmail.create(email)
-        .then(email => callback(null, ok({
+        .then(email => ok({
             success: true,
             email: path(['attrs'], email)
-        })))
+        }))
     .catch(error =>
-        callback(null, badRequest(400, { message: `Bad Request -> ${error}` })))
+        badRequest(400, { message: `Bad Request -> ${error}` }))
 });
